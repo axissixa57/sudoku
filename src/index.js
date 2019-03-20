@@ -1,14 +1,14 @@
-module.exports = function solveSudoku(matrix) {
-  function solveSudoku(board, n) {
+module.exports = function solveSudoku(matrix) { 
+  function tryToSolveSudoku(matrix, length) {
     let row;
     let col;
     let isEmpty = true;
 
-    for (let i = 0; i < n; i++) 
+    for (let i = 0; i < length; i++) 
     {
-        for (let j = 0; j < n; j++) 
+        for (let j = 0; j < length; j++) 
         {
-            if (board[i][j] == 0) 
+            if (matrix[i][j] == 0) 
             {
                 row = i;
                 col = j;
@@ -29,42 +29,42 @@ module.exports = function solveSudoku(matrix) {
         return true; 
     } 
 
-    for (let num = 1; num <= n; num++) 
+    for (let num = 1; num <= length; num++) 
     {
-        if (isSafe(board, row, col, num)) 
+        if (isSuitableValue(matrix, row, col, num))
         {
-            board[row][col] = num; 
-            if (solveSudoku(board, n))  
+            matrix[row][col] = num; 
+            if (tryToSolveSudoku(matrix, length))  
             {
-                return board;
+                return matrix;
             }   
             else
             {
-                board[row][col] = 0; 
+                matrix[row][col] = 0; 
             }
         }
     }
     return false;
   }
 
-  function isSafe(board, row, col, num) {
-    for (let d = 0; d < board.length; d++) 
+  function isSuitableValue(matrix, row, col, num) {
+    for (let d = 0; d < matrix.length; d++) 
     {
-        if (board[row][d] == num)
+        if (matrix[row][d] == num)
         {
             return false;
         }
     }
 
-    for (let r = 0; r < board.length; r++) 
+    for (let r = 0; r < matrix.length; r++) 
     {
-        if (board[r][col] == num)
+        if (matrix[r][col] == num)
         {
             return false;
         }
     }
 
-    let sqrt = Math.sqrt(board.length);
+    let sqrt = Math.sqrt(matrix.length);
     let boxRowStart = row - row % sqrt;
     let boxColStart = col - col % sqrt;
 
@@ -72,7 +72,7 @@ module.exports = function solveSudoku(matrix) {
     {
         for (let d = boxColStart; d < boxColStart + sqrt; d++)
         {
-            if (board[r][d] == num) 
+            if (matrix[r][d] == num) 
             {
                 return false;
             }
@@ -82,9 +82,8 @@ module.exports = function solveSudoku(matrix) {
     return true;  
   }
 
-  let board = matrix; 
-  let n = board.length;
-  let result = solveSudoku(board, n);
+  let length = matrix.length;
+  let result = tryToSolveSudoku(matrix, length);
 
   return result;
 }
