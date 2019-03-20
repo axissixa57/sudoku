@@ -13,7 +13,7 @@ module.exports = function solveSudoku(matrix) {
                 row = i;
                 col = j;
 
-                isEmpty = false; // т.к. у нас есть ещЄ 0 в €чейках 
+                isEmpty = false; 
                 break;
             }
         }
@@ -23,7 +23,7 @@ module.exports = function solveSudoku(matrix) {
         }
     }
 
-    // 0 не осталось в €чейках 
+    
     if (isEmpty)
     { 
         return true; 
@@ -40,7 +40,7 @@ module.exports = function solveSudoku(matrix) {
             }   
             else
             {
-                board[row][col] = 0; // replace it 
+                board[row][col] = 0; 
             }
         }
     }
@@ -79,7 +79,7 @@ module.exports = function solveSudoku(matrix) {
         }
     }
 
-    return true; // if there is no clash, it's safe 
+    return true;  
   }
 
   let board = matrix; 
